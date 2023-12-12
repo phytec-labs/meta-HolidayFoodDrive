@@ -1,0 +1,43 @@
+diff --git a/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts b/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
+index f6c4f47a4474..746be67c3634 100644
+--- a/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
++++ b/arch/arm64/boot/dts/ti/k3-am642-phyboard-electra-rdk.dts
+@@ -507,3 +507,38 @@ &usb0 {
+ 	phys = <&serdes0_pcie_usb_link>;
+ 	phy-names = "cdns3,usb3-phy";
+ };
++
++&main_i2c1 {
++	display@3c {
++                compatible = "solomon,ssd1306fb-i2c";
++                reg = <0x3c>;
++		solomon,height = <64>;
++                solomon,width = <128>;
++                //solomon,com-seq;
++                solomon,com-invdir;
++                solomon,page-offset = <0>;
++                solomon,prechargep1 = <2>;
++                solomon,prechargep2 = <13>;
++        };
++};
++
++/ {
++        hx711: weight {
++               compatible = "avia,hx711";
++               pinctrl-names = "default";
++               pinctrl-0 = <&hx711_pins_default>;
++               sck-gpios = <&main_gpio0 83 GPIO_ACTIVE_HIGH>;
++               dout-gpios = <&main_gpio0 18 GPIO_ACTIVE_HIGH>;
++               avdd-supply = <&vcc_5v0_som>;
++               clock-frequency = <2500000>;
++        };
++};
++
++&main_pmx0 {
++        hx711_pins_default: hx711-pins-default {
++                pinctrl-single,pins = <
++                        AM64X_IOPAD(0x0048, PIN_INPUT, 7)      /* (U20) GPMC0_AD3.GPIO0_18 */
++                        AM64X_IOPAD(0x0050, PIN_OUTPUT, 7)      /* (U19) GPMC0_AD5.GPIO0_83 */
++                >;
++        };
++};

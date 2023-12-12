@@ -1,0 +1,14 @@
+[Unit]
+Description=Holiday phyFood Drive - weightScale Service
+After=basic.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/displayWeight.sh
+ExecStopPost=/usr/bin/killall displayWeight.sh
+RemainAfterExit=no
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+diff --git a/board/phytec/phycore_am64x/phycore_am64x.env b/board/phytec/phycore_am64x/phycore_am64x.env
+index 81f6e783ac..69758a4e17 100644
+--- a/board/phytec/phycore_am64x/phycore_am64x.env
++++ b/board/phytec/phycore_am64x/phycore_am64x.env
+@@ -14,7 +14,7 @@ rd_spec=-
+ mmcrootfstype=ext4 rootwait
+ args_mmc=setenv bootargs console=${console} ${optargs}
+ 	root=/dev/mmcblk${mmcdev}p${mmcroot} rw
+-	rootfstype=${mmcrootfstype}
++	rootfstype=${mmcrootfstype} vt.global_cursor_default=0
+ 
+ init_mmc=run args_all args_mmc
+ get_fdt_mmc=load mmc ${mmcdev}:${bootpart} ${fdtaddr} ${fdtfile}
