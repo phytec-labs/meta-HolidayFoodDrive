@@ -1,0 +1,14 @@
+[Unit]
+Description=Holiday phyFood Drive - Sound Service
+After=basic.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/food-sound.sh
+ExecStopPost=/usr/bin/killall food-sound.sh
+RemainAfterExit=no
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
