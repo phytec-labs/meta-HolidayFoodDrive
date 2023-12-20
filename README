@@ -1,16 +1,25 @@
 This meta layer enables the Holiday Food Drive Demo on the phyBOARD-Electra
+(and can serve as a reference meta-layer for preparing production-ready software images)
+
+Verified using BSP-Yocto-Ampliphy-AM64x-PD23.2.0
 
 Requirements: 
-  - PCM-072.A2 (HS-FS)
-  - SSD1306 OLED Module (I2C LCD) connected to I2C1 - (helpful guide to verify display: https://www.electronicwings.com/arduino/oled-graphic-display-interfacing-with-arduino-uno)
-  - Load Cells and HX711 Module connected to GPIO0_18 (DOUT) and GPIO0_83 (PD_SCK) - (helpful guide by Maddy!: https://wiki.phytec.com/pages/viewpage.action?spaceKey=~mbrown&title=HX711+Scale+Integration)
+  - PCM-072.A2 (HS-FS SOM)
+  - SSD1306 OLED Module (I2C LCD) connected to I2C1
+  - Load Cells and HX711 Module connected to GPIO0_18 (DOUT) and GPIO0_83 (PD_SCK)
+  - USB Speaker
 
 Meta Layer provides:
-  - dependencies for sound and AWS GreenGrass, however both of these were setup on the target. Sound may be added back to this meta-layer in the future.
+  - dependencies for AWS GreenGrass: https://docs.phytec.com/latest/phycore-am64x/3rdpartyintegration/aws-gg.html
   - systemd service to poll the weight scale and display the weight on the I2C display
+  - systemd service to poll the weight scale and play X-mas music when a change in weight is detected
 
 In order to enable this:
 
   bitbake-layers add-layer <path-to>/meta-HolidayFoodDrive
 
-Enable the layer and simply rebuild MACHINE=phyboard-electra-am64xx-2 phytec-headless-image
+Enable the layer and simply rebuild the BSP:
+
+  MACHINE=phyboard-electra-am64xx-2 phytec-headless-image
+
+weight-scale.service and weight-scale-sound.service (systemd services) will be enabled and running upon boot (just need the hardware all connected-up for this to work)
